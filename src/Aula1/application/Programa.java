@@ -4,17 +4,17 @@ import Aula1.entities.ArvoreBinaria;
 
 public class Programa {
     static void main() {
-        System.out.println("=== TESTE DE INSERÇÃO ===");
-        testeInserir1();
-        System.out.println();
-        testeInserir2();
+        System.out.println("=== TESTE DE INSERÇÃO ITERATIVO ===");
+        testeInserirIterativo();
+        System.out.println("=== TESTE DE INSERÇÃO RECURSIVO ===");
+        testeInserirRecursivo();
     }
 
-    public static void testeInserir1() {
+    public static void testeInserirIterativo() {
         ArvoreBinaria arvoreBinaria = new ArvoreBinaria();
-        arvoreBinaria.inserir(5);
-        arvoreBinaria.inserir(10);
-        arvoreBinaria.inserir(13);
+        arvoreBinaria.inserirIterativo(5);
+        arvoreBinaria.inserirIterativo(10);
+        arvoreBinaria.inserirIterativo(13);
         System.out.println("Pré-ordem: ");
         arvoreBinaria.exibir("Pre");
         System.out.println("Em ordem: ");
@@ -23,7 +23,7 @@ public class Programa {
         arvoreBinaria.exibir("Pos");
     }
 
-    public static void testeInserir2() {
+    public static void testeInserirRecursivo() {
         ArvoreBinaria arvore1 = new ArvoreBinaria();
         arvore1.inserir(7);
         arvore1.inserir(5);

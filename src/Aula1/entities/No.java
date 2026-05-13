@@ -7,8 +7,6 @@ public class No {
 
     private No direita;
 
-
-
     public No(Integer conteudo, No esquerda, No direita) {
         this.conteudo = conteudo;
         this.esquerda = esquerda;
