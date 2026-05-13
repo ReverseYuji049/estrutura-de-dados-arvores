@@ -133,17 +133,18 @@ public class ArvoreBinaria {
     private No removerRecursivo(Integer conteudo, No atual) {
         // Caso base: o elemento não foi encontrado
         if (atual == null) {
+            System.out.println("O elemento não foi encontrado.");
             return null;
         }
-        // Procura o elemento a ser removido na esquerda
-        else if (atual.getConteudo() < conteudo) {
-            // Atualiza o ponteiro direito após a remoção
-            atual.setDireita(removerRecursivo(conteudo, atual.getDireita()));
-        }
-        // Procura o elemento a ser removido na direita
+        // Procura o elemento na esquerda
         else if (atual.getConteudo() > conteudo) {
             // Atualiza o ponteiro esquerdo após a remoção
             atual.setEsquerda(removerRecursivo(conteudo, atual.getEsquerda()));
+        }
+        // Procura o elemento na direita
+        else if (atual.getConteudo() < conteudo) {
+            // Atualiza o ponteiro direito após a remoção
+            atual.setDireita(removerRecursivo(conteudo, atual.getDireita()));
         }
         // Senão, encontrou o elemento a ser removido
         else {
@@ -192,30 +193,37 @@ public class ArvoreBinaria {
         // Retorna o sucessor
         return atual;
     }
-
+    // Buscar Nó:
     public boolean buscarNo(Integer conteudo) {
+        // Verificação de árvore vazia
         if (estaVazia()) {
             System.out.println("A árvore está vazia!");
             return false;
         } else {
+            // Referência da raiz para percorrer a árvore
             No noAtual = this.raiz;
             while (noAtual != null) {
+                // Ao encontrar o elemento, retorna verdadeiro
                 if (noAtual.getConteudo().equals(conteudo)) {
                     System.out.println("O elemento " + conteudo + " foi encontrado.");
                     return true;
                 } else {
+                    // Procura à direita
                     if (conteudo > noAtual.getConteudo()) {
                         noAtual = noAtual.getDireita();
-                    } else if (conteudo < noAtual.getConteudo()) {
+                    }
+                    // Procura à esquerda
+                    else if (conteudo < noAtual.getConteudo()) {
                         noAtual = noAtual.getEsquerda();
                     }
                 }
             }
+            // Elemento não foi encontrado
             System.out.println("O elemento não existe na árvore.");
         }
         return false;
     }
-
+    // Verificação de árvore vazia
     public boolean estaVazia() {
         if (raiz.getConteudo() == null) {
             return true;
