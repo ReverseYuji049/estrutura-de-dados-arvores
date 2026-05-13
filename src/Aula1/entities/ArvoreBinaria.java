@@ -27,7 +27,7 @@ public class ArvoreBinaria {
     // Inserir (Recursivo)
     //  -
 
-    public void inserirRecursivo(No novoNo, No atual) {
+    private void inserirRecursivo(No novoNo, No atual) {
         // Verifica se o conteúdo do nó atual é maior que o novo nó
         if (atual.getConteudo() > novoNo.getConteudo()) {
             // Verifica se o filho da esquerda está vazio
@@ -113,7 +113,108 @@ public class ArvoreBinaria {
             }
         }
     }
+    // Remover:
+    //  - Verifica se a árvore está vazia
+    //  - Senão estiver, cria um nó referência para a raiz (atual)
+    //  - Chama o método removerRecursivo passando os argumentos conteúdo e o nó atual
+    public void remover(Integer conteudo) {
+        // Verificação de árvore vazia
+        if (estaVazia()) {
+            System.out.println("A árvore está vazia!");
+            return;
+        } else {
+            // Referência a raiz
+            No atual = this.raiz;
+            // Chamada do método recursivo
+            this.raiz = removerRecursivo(conteudo, atual);
+        }
+    }
+    // Remover (Recursivo):
+    private No removerRecursivo(Integer conteudo, No atual) {
+        // Caso base: o elemento não foi encontrado
+        if (atual == null) {
+            return null;
+        }
+        // Procura o elemento a ser removido na esquerda
+        else if (atual.getConteudo() < conteudo) {
+            // Atualiza o ponteiro direito após a remoção
+            atual.setDireita(removerRecursivo(conteudo, atual.getDireita()));
+        }
+        // Procura o elemento a ser removido na direita
+        else if (atual.getConteudo() > conteudo) {
+            // Atualiza o ponteiro esquerdo após a remoção
+            atual.setEsquerda(removerRecursivo(conteudo, atual.getEsquerda()));
+        }
+        // Senão, encontrou o elemento a ser removido
+        else {
+            // Caso nó folha: sem filhos
+            if (atual.getEsquerda() == null && atual.getDireita() == null) {
+                System.out.println("O elemento " + conteudo + " foi removido.");
+                // Retorna null para o nó pai remover o nó folha
+                return null;
+            }
+            // Caso nó com um filho na direita:
+            else if (atual.getEsquerda() == null) {
+                System.out.println("O elemento " + conteudo + " foi removido.");
+                // Retorna o nó direito, onde o nó pai apontará para ele
+                return atual.getDireita();
+            }
+            // Caso nó com um filho na esquerda:
+            else if (atual.getDireita() == null) {
+                System.out.println("O elemento " + conteudo + " foi removido.");
+                // Retorna o nó esquerdo, onde o nó pai apontará para ele
+                return atual.getEsquerda();
+            }
+            // Caso nó com dois filhos
+            else {
+                // Procura o menor nó da subárvore direita
+                No sucessor = sucessor(atual.getDireita());
+                // Copia o conteúdo do sucessor para o atual
+                atual.setConteudo(sucessor.getConteudo());
+                // Remove o sucessor original da subárvore direita e atualiza o ponteiro direito
+                atual.setDireita(removerRecursivo(sucessor.getConteudo(), atual.getDireita()));
+                System.out.println("O elemento " + conteudo + " foi removido.");
+                // Retorna o nó atualizado
+                return atual;
+            }
+        }
+        // Retorna o nó atualizado para manter os ponteiros certos
+        return atual;
+    }
 
+    // Método auxiliar da remoção:
+    //  - Realiza a busca do menor nó
+    private No sucessor(No atual) {
+        while (atual.getEsquerda() != null) {
+            // Avança pela subárvore esquerda
+            atual = atual.getEsquerda();
+        }
+        // Retorna o sucessor
+        return atual;
+    }
+
+    public boolean buscarNo(Integer conteudo) {
+        if (estaVazia()) {
+            System.out.println("A árvore está vazia!");
+            return false;
+        } else {
+            No noAtual = this.raiz;
+            while (noAtual != null) {
+                if (noAtual.getConteudo().equals(conteudo)) {
+                    System.out.println("O elemento " + conteudo + " foi encontrado.");
+                    return true;
+                } else {
+                    if (conteudo > noAtual.getConteudo()) {
+                        noAtual = noAtual.getDireita();
+                    } else if (conteudo < noAtual.getConteudo()) {
+                        noAtual = noAtual.getEsquerda();
+                    }
+                }
+            }
+            System.out.println("O elemento não existe na árvore.");
+        }
+        return false;
+    }
 
     public boolean estaVazia() {
         if (raiz.getConteudo() == null) {
