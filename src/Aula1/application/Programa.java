@@ -22,6 +22,8 @@ public class Programa {
         testeRemoverInexistente();
         System.out.println("=== Teste de Remoção de Árvore Vazia ===");
         testeRemoverArvoreVazia();
+        System.out.println("=== Teste de Remoção ===");
+        testeRemover2();
 
     }
 
@@ -93,6 +95,18 @@ public class Programa {
         System.out.println("\nRemovendo folha 5:");
         arvore.remover(5);
 
+        arvore.exibir("Pos");
+        System.out.println();
+        arvore.remover(3);
+        arvore.exibir("Pos");
+        arvore.remover(12);
+        arvore.exibir("Pos");
+        arvore.remover(7);
+        arvore.remover(8);
+        arvore.inserir(20);
+        arvore.inserir(17);
+        arvore.inserir(18);
+        arvore.remover(14);
         arvore.exibir("Pos");
     }
 
@@ -173,6 +187,24 @@ public class Programa {
         arvore.remover(10);
 
         arvore.exibir("Pos");
+    }
+
+    private static void testeRemover2() {
+        ArvoreBinaria arvore = new ArvoreBinaria();
+
+        arvore.inserir(10);
+        arvore.remover(11);
+        arvore.remover(10);
+
+        arvore.exibir("Pos");
+
+        ArvoreBinaria arvore2 = new ArvoreBinaria();
+
+        arvore2.inserir(10);
+        arvore2.inserir(11);
+        arvore2.remover(10);
+
+        arvore2.exibir("Pos");
     }
 
 }
